@@ -1,0 +1,6 @@
+FROM alpine:latest
+LABEL "maintainer"="sevendollar@gmail.com"
+LABEL "slack team's invite link"="https://join.slack.com/t/techtalk-tw/shared_invite/MjI1ODIzNzU1MzE5LTE1MDIzNTMxMTQtNTFiZDA3YjkyMA"
+RUN apk --update add --no-cache curl && \
+    rm -rf /var/lib/apt/lists/*
+CMD ["curl", "-s", "ipinfo.io/ip"]
