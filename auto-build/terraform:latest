@@ -1,0 +1,1 @@
+curl -H "Content-Type: application/json" -d '{"docker_tag": "latest"}' -X POST https://registry.hub.docker.com/u/sevendollar/terraform/trigger/9a917b32-3465-4810-8081-6b4b35fb2872/

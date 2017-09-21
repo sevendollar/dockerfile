@@ -1,0 +1,11 @@
+FROM alpine:latest
+LABEL maintainer="sevendollar@gmail.com"
+LABEL slack team's invite link="https://join.slack.com/t/techtalk-tw/shared_invite/MjI1ODIzNzU1MzE5LTE1MDIzNTMxMTQtNTFiZDA3YjkyMA"
+WORKDIR /terraform
+RUN apk --update add --no-cache unzip curl git && \
+    curl -o tf https://releases.hashicorp.com/terraform/0.10.0/terraform_0.10.0_linux_amd64.zip?_ga=2.151788921.1355911325.1502345313-1375124468.1501751275 && \
+    unzip tf && \
+    mv terraform /usr/local/bin/ && \
+    rm tf* && \
+    rm -rf /var/lib/apt/lists/*
+CMD ["terraform"]
