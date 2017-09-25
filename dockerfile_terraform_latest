@@ -1,9 +1,8 @@
 FROM alpine:latest
 LABEL maintainer="sevendollar@gmail.com"
-LABEL slack team's invite link="https://join.slack.com/t/techtalk-tw/shared_invite/MjI1ODIzNzU1MzE5LTE1MDIzNTMxMTQtNTFiZDA3YjkyMA"
 WORKDIR /terraform
 RUN apk --update add --no-cache curl unzip git && \
-    curl -o tf https://releases.hashicorp.com/terraform/0.10.0/terraform_0.10.0_linux_amd64.zip?_ga=2.151788921.1355911325.1502345313-1375124468.1501751275 && \
+    curl -sLo tf https://releases.hashicorp.com/terraform/0.10.6/terraform_0.10.6_linux_amd64.zip?_ga=2.154767166.780635085.1506299436-510355381.1497248072 && \
     unzip tf && \
     mv terraform /usr/local/bin/ && \
     rm tf* && \
