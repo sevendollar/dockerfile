@@ -6,5 +6,6 @@ RUN apk --update add --no-cache curl unzip git && \
     unzip tf && \
     mv terraform /usr/local/bin/ && \
     rm tf* && \
-    rm -rf /var/lib/apt/lists/*
+    rm -rf /var/lib/apt/lists/* && \
+    alias tf=terraform
 CMD ["terraform"]
