@@ -1,0 +1,5 @@
+FROM alpine:latest
+LABEL maintainer="sevendollar@gmail.com"
+WORKDIR /ipmitool
+RUN apk --update add --no-cache ipmitool bash
+CMD ["ipmitool"]
