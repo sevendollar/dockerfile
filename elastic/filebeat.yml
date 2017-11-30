@@ -1,0 +1,7 @@
+filebeat.prospectors:
+- type: log
+  enabled: true
+  paths:
+    - /access_log
+output.logstash:
+  hosts: ["10.5.1.147:5044"]

@@ -1,0 +1,11 @@
+#filebeat
+docker run --name filebeat -d -v ~/access_log:/access_log -v ~/filebeat.yml:/usr/share/filebeat/filebeat.yml docker.elastic.co/beats/filebeat:6.0.0
+
+#logstash
+docker run --name logstash -d -p 5044:5044 -p 9600:9600 -v ~/pipeline/:/usr/share/logstash/pipeline docker.elastic.co/logstash/logstash-oss:6.0.0
+
+#elasticsearch
+docker run --name elasticsearch -d -P -e cluster.name=docker-cluster -e cluster.name=docker-cluster -e "ES_JAVA_OPTS=-Xms512m -Xmx512m" --ulimit memlock=-1:-1 docker.elastic.co/elasticsearch/elasticsearch-oss:6.0.0
+
+#kibana
+docker run --name kibana -d -P -e ELASTICSEARCH_URL=http://10.5.1.147:32884 docker.elastic.co/kibana/kibana-oss:6.0.0
