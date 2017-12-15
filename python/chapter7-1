@@ -33,7 +33,7 @@ while True:
         else:
             secured_password = hideRegex1.sub(r'\1********', raw_test)
             print('password secured.')
+            print("Your password is as below, keep it safe.\n" + secured_password)
+            break
     except:
         pass
-print('\n')
-print('Your password is as below, keep it safe.\n' + secured_password)
