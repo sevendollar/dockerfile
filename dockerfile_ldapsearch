@@ -1,0 +1,5 @@
+FROM alpine:latest
+LABEL maintainer="sevendollar@gmail.com"
+RUN apk --update add --no-cache openldap-clients && \
+    echo 'ldapsearch -x -h 192.168.15.9 -D "view@cvl.com.tw" -W -b "dc=cvl,dc=com,dc=tw"' > readme
+CMD ["cat", "readme"]

@@ -1,0 +1,5 @@
+FROM alpine:latest
+LABEL maintainer="sevendollar@gmail.com"
+COPY b.sh .
+RUN apk --update add --no-cache bash curl
+CMD ["./b.sh"]

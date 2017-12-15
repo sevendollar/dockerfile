@@ -1,0 +1,39 @@
+import re
+
+password_min_length = 10
+varifyRegex11 = re.compile(r'(.+\s+.+)')
+varifyRegex1 = re.compile(r'([a-z]+)')
+varifyRegex2 = re.compile(r'[A-Z]+')
+varifyRegex3 = re.compile(r'[0-9]+')
+varifyRegex4 = re.compile(r'''[~!@#$%^&*()_+=|`/\-'":;<>]+''', re.VERBOSE|re.DOTALL)
+hideRegex1 = re.compile(r'''([a-zA-Z0-9~!@#$%^&*()_+=|`\-'":;<>]{2}).*''')
+# raw_test = input('input password:\n').strip()
+# print(str(varifyRegex1.findall(raw_test)) == '[]')
+while True:
+    try:
+        raw_test = input('input password:\n').strip()
+        if len(raw_test) < password_min_length:
+            print('password must contain alest ' + str(password_min_length) + ' characters')
+            continue
+        elif str(varifyRegex11.findall(raw_test)) != '[]':
+            print(r'''don't mess around, alright!''')
+            continue
+        elif str(varifyRegex1.findall(raw_test)) == '[]':
+            print(r'password must contain 1 lower word(a-z)')
+            continue
+        elif str(varifyRegex2.findall(raw_test)) == '[]':
+            print(r'password must contain 1 upper word(A-Z)')
+            continue
+        elif str(varifyRegex3.findall(raw_test)) == '[]':
+            print(r'password must contain 1 number(0-9)')
+            continue
+        elif str(varifyRegex4.findall(raw_test)) == '[]':
+            print(r'password must contain 1 special symbol')
+            continue
+        else:
+            secured_password = hideRegex1.sub(r'\1********', raw_test)
+            print('password secured.')
+    except:
+        pass
+print('\n')
+print('Your password is as below, keep it safe.\n' + secured_password)

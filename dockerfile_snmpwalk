@@ -1,0 +1,4 @@
+FROM alpine:latest
+LABEL maintainer="sevendollar@gmail.com"
+RUN apk --update add --no-cache bash net-snmp-tools net-snmp
+CMD ["snmpwalk", "--version"]
