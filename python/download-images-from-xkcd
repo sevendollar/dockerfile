@@ -1,0 +1,30 @@
+import requests, bs4, os
+
+url = 'https://xkcd.com/'
+os.makedirs('xkcd', exist_ok=True)
+while not url.endswith('#'):
+    res = requests.get(url)
+    res.raise_for_status()
+    if res.status_code == requests.codes.ok:
+        try:
+            soup = bs4.BeautifulSoup(res.text, 'html.parser')
+            imgElement = soup.find('div', attrs={'id': 'comic'}).img['src']
+            comicUrl = 'http:' + imgElement
+            imgTitle = soup.find('div', attrs={'id': 'ctitle'}).text
+            print('getting page: ' + imgTitle + ' (' + url.split('/')[-2] + ')')
+            res = requests.get(comicUrl)
+            res.raise_for_status()
+            if res.status_code == requests.codes.ok:
+                if os.path.exists(os.path.join('xkcd', os.path.basename(comicUrl))):
+                    print('file existed. pass!')
+                else:
+                    imgFile = open(os.path.join('xkcd', os.path.basename(comicUrl)), 'wb')
+                    for chuck in res.iter_content(1000000):
+                        imgFile.write(chuck)
+                    print('downloading image: ' + comicUrl + '.' * 5)
+                    imgFile.close()
+        except:
+            pass
+    prevUrl = soup.find('a', attrs={'rel': 'prev'})['href']
+    url = 'https://xkcd.com' + prevUrl
+print('Done!')
