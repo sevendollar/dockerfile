@@ -1,17 +1,26 @@
-def collision(state, nextX):
+def collision(nextX, state):
     nextY = len(state)
     for i in range(nextY):
         if abs(state[i] - nextX) in (0, nextY - i):
             return True
     return False
 
-def queen(num=8, state=()):
-    for pos in range(num):
-        if not collision(state, pos):
-            if len(state) == num - 1:
-                yield (pos, )
-            else:
-                for result in queen(num, state + (pos, )):
-                    yield (pos, ) + result
 
-print(list(queen()))
+def queen(state=(), number=8):
+    for position in range(number):
+        if not collision(nextX=position, state=state):
+            if len(state) != number - 1:
+                for result in queen(number=number, state=state + (position, )):
+                    yield (position, ) + result
+            else:
+                yield (position, )
+
+def print_result(result):
+    for i in range(len(result)):
+        print('. ' * result[i] + 'Q' + ' .' * (len(result) - result[i] - 1))
+
+import random
+
+s = random.choice(list(queen()))
+print(s)
+print_result(s)
