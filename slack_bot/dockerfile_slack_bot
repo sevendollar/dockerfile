@@ -1,8 +1,8 @@
 FROM ubuntu
 LABEL maintainer="sevendollar@gmail.com"
 WORKDIR /slack
-COPY ./slack_bot/*.py /slack/
-ENV SLACK_BOT_TOKEN="xoxb-344195823494-lpD4k9qYsrfDiSNfMBXMF4sD"
+COPY ./*.py /slack/
+ENV SLACK_BOT_TOKEN=''
 ENV RUCKUS_USER=''
 ENV RUCKUS_PASS=''
 RUN apt update && \
