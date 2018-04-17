@@ -2,6 +2,7 @@ FROM ubuntu
 LABEL maintainer="sevendollar@gmail.com"
 WORKDIR /slack
 COPY ./*.py /slack/
+ENV LANG='C.UTF-8'
 ENV SLACK_BOT_TOKEN=''
 ENV RUCKUS_USER=''
 ENV RUCKUS_PASS=''
