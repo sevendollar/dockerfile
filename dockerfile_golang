@@ -1,0 +1,19 @@
+# build stage
+FROM sevendollar/golang AS build-env
+ENV TZ=Asia/Taipei
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime
+RUN echo $TZ > /etc/timezone
+RUN cd /go/src && git clone https://github.com/sevendollar/golang
+RUN mv /go/src/golang/http-exercise-2 /go/src/web
+RUN go get github.com/google/uuid
+RUN go get golang.org/x/crypto/bcrypt
+RUN go get gopkg.in/mgo.v2
+RUN cd /go/src/web && GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -o app .
+RUN mkdir temp && cp -r src/web/templates/ temp && cp src/web/app temp
+
+# final stage
+FROM alpine
+COPY --from=build-env /go/temp/ /go/src/web/
+RUN mv /go/src/web/app /root
+EXPOSE 80
+ENTRYPOINT /root/app
