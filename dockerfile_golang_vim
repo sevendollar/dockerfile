@@ -1,6 +1,6 @@
 FROM golang
 LABEL maintainer="sevendollar@gmail.com"
-WORKDIR /go
+WORKDIR /go/src
 ENV LANG C.UTF-8
 RUN touch /root/.vimrc && \
     echo -e '\nexecute pathogen#infect()\n\
