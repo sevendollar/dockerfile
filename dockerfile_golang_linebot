@@ -8,14 +8,15 @@ RUN cp /git/line2.go /go/src/main.go
 RUN go get -d -v
 RUN cd /go/src
 RUN mkdir -p /go/bin/bot
-RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -a -installsuffix cgo -ldflags="-w -s" -o /go/bin/line
+ RUN GOOS=linux GOARCH=amd64 CGO_ENABLED=0 go build -a -installsuffix cgo -ldflags="-w -s" -o /go/bin/line
 RUN cp /git/acme_account+key /go/bin/bot
 RUN cp /git/lwtyaodfc97utge3ywgb.civilgroupholdings.com /go/bin/bot
 RUN mv /go/bin/line /go/bin/bot
 
 # final stage
 FROM golang:alpine
-COPY --from=build-env /go/bin/bot /go/bin
+# working directory for Lets Encrypt certificates to download to
+WORKDIR /go
+COPY --from=build-env /go/bin/bot /go
 EXPOSE 443
-ENTRYPOINT /go/bin/line
-
+ENTRYPOINT ["/go/line"]
