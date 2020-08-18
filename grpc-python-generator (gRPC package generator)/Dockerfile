@@ -6,7 +6,7 @@
 FROM python:latest
 LABEL maintainer="sevendollar@gmail.com"
 WORKDIR /grpc
-COPY generate_grpc.sh generate_grpc.sh
+COPY generate_grpc.sh .
 RUN python -m pip install --upgrade pip && \
     python -m pip install grpcio && \
     python -m pip install grpcio-tools && \
