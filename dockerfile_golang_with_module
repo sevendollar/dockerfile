@@ -12,6 +12,7 @@ RUN CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o go
 
 # final stage
 FROM scratch
+LABEL maintainer="sevendollar@gmail.com"
 COPY --from=build-env /app/go /go
 # EXPOSE 8080
 ENTRYPOINT ["/go"]
