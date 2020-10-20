@@ -6,6 +6,7 @@
 
 FROM golang:1.14.6
 LABEL maintainer="sevendollar@gmail.com"
+
 WORKDIR /grpc
 
 
@@ -20,20 +21,20 @@ RUN apt-get update -y && \
     cp bin/protoc /bin/ && \
     rm -rf *
 
-COPY grpc_gen_go.sh .
-
-RUN chmod +x grpc_gen_go.sh && \
-    mv grpc_gen_go.sh /bin
-
 
 # Go plugins for the protocol compiler
 ENV GO111MODULE=on
 
-RUN go get github.com/golang/protobuf/protoc-gen-go \
+RUN go get \
+    github.com/golang/protobuf/protoc-gen-go \
     google.golang.org/grpc/cmd/protoc-gen-go-grpc
 
 ENV PATH="$PATH:$(go env GOPATH)/bin"
 
 
 # run the shell script to generate gRPC package for Go
+COPY grpc_gen_go.sh .
+
+RUN chmod +x grpc_gen_go.sh && \
+    mv grpc_gen_go.sh /bin
 CMD [ "grpc_gen_go.sh" ]
