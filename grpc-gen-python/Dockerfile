@@ -5,12 +5,16 @@
 
 FROM python:latest
 LABEL maintainer="sevendollar@gmail.com"
+
 WORKDIR /grpc
-COPY generate_grpc.sh .
+
+COPY grpc-gen-python.sh .
+
 RUN python -m pip install --upgrade pip && \
     python -m pip install grpcio && \
     python -m pip install grpcio-tools && \
     \
-    chmod +x generate_grpc.sh && \
-    mv generate_grpc.sh /bin
-ENTRYPOINT [ "generate_grpc.sh" ]
+    chmod +x grpc-gen-python.sh && \
+    mv grpc-gen-python.sh /bin
+
+ENTRYPOINT [ "grpc-gen-python.sh" ]
